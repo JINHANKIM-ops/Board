@@ -3,6 +3,7 @@
    - Intellij Ultimate
    - MySql 8.0.22.0
    - JDK 1.8
+   - Brackets
 2. 개발 기간
    - 10일
 3. 사용 테이블
