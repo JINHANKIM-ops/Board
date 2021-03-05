@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+
+    <form th:action="@{'/update/' + ${update.id}}" method="POST">
+        제목 : <input type="text" name="title" th:value="${update.title}"> <br>
+        내용 : <input type="text" name="content" th:value="${update.content}"> <br>
+        작성자 : <input type="text" name="writer" th:value="${update.writer}"> <br>
+
+        <a th:href="@{'/detail/' + ${update.id}}">
+        <button type="submit">수정</button>
+        </a>
+    </form> <br>
+
+    <a href="/read">목록</a>
+
+</div>
+
+</body>
+</html>

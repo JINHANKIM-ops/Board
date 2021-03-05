@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>목록</title>
+</head>
+<body>
+
+<div class="container">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="content : ${contents}">
+                <td th:text="${content.id}"></td>
+                <td>
+                    <a th:href="@{'/detail/' + ${content.id}}" />
+                    <span th:text="${content.title}"/>
+                </td>
+                <td th:text="${content.writer}"></td>
+                <td th:text="${#temporals.format(content.registeredAt, 'yyyy-MM-dd')}"></td>
+                <td th:text="${content.count}" th:align="center"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${!contents.isEmpty()}">
+            <tbody
+                    th:with="
+                    pageNumber = ${contents.pageable.pageNumber},
+                    pageSize = ${contents.pageable.pageSize},
+                    totalPages = ${contents.totalPages},
+                    startPage = ${T(Math).floor(pageNumber / pageSize) * pageSize + 1},
+                    tempEndPage = ${startPage + pageSize - 1},
+                    endPage = (${tempEndPage > totalPages ? totalPages : tempEndPage})"
+                    aria-label="Page navigation">
+
+                <tr>
+                    <!-- 첫 번째 페이지 인 경우 # : 아닌 경우 시작페이지 - 페이지 사이즈 반환 -->
+                    <td th:classappend="${contents.first} ? 'disabled'">
+                        <a
+                           th:href="${contents.first} ? '#' : @{/read(page=${#numbers.formatDecimal(startPage - pageSize, 0, -1)})}"
+                                aria-label="First">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </td>
+                    <!-- 이전페이지 -->
+                    <td th:classappend="${pageNumber + 1 <= pageSize + 1} ? 'disabled'">
+                        <a th:href="@{/read(page= ${pageNumber - 1})}" aria-label="Previous">
+                            <span>&lt;</span>
+                        </a>
+                    </td>
+                    <!--페이지 번호들
+                    시작페이지 ~ 끝 페이지 반복
+                    반복페이지 = 페이지번호 + 1 과 같은 경우 active -->
+                    <td th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                        th:classappend="${page == pageNumber + 1} ? 'active'">
+                        <a th:text="${page}" th:href="@{/read(page=${page - 1})}"></a>
+                    </td>
+                    <!-- 다음페이지
+                    마지막 페이지 인 경우 # : 아닌경우 페이지번호 + 1 -->
+                    <td th:classappend="${pageNumber == contents.last} ? 'disabled'">
+                        <a th:href="${contents.last} ? '#' : @{/read(page=${pageNumber + 1})}"
+                                aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </td>
+                    <!-- 마지막 페이지
+                    floor: 정수 1의 자리를 내리기 위해 사용 -->
+                    <td th:classappend=" ${T(Math).floor(totalPages/10)*10 <= startPage} ? 'disabled'">
+                        <a th:href="@{/read(page=${totalPages - 1})}">
+                            <span>&raquo;</span>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </div>
+        <a th:href="@{/create}" >글쓰기</a>
+
+</div>
+
+</body>
+</html>

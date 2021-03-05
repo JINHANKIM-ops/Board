@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>목록</title>
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{'/detail/' + ${content.id}}" method="get">
+        <h2>No : <td th:text="${content.id}"/></h2>
+        <div class="form-group">
+            <label for="contents">Writer: <td th:text="${content.writer}" /></label>
+        </div>
+        <div class="form-group">
+            <label for="contents">Title: <td th:text="${content.title}" /></label>
+        </div>
+        <div class="form-group">
+            <label for="contents">content:</label><br>
+            <textarea rows="10" cols="50" id="contents" th:text="${content.content}"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form">Created Time : <td th:text="${#temporals.format(content.registeredAt, 'yyyy-MM-dd')}" /></label>
+            <label class="form">Count : <td th:text="${content.count}" /> </label>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>File Name: <a th:href="@{'/download/' + ${files.id}}" ><td th:text="${files.fileOriName}"/></a></label><br>
+            <img th:src="@{'/download/' + ${files.id}}" th:width="300" th:height="200">
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/read}">목록</a>
+            <a th:href="@{'/update/' + ${content.id}}">수정</a>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

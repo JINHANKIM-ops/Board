@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+
+    <form th:action="@{/create}" method="POST" enctype="multipart/form-data">
+        제목 : <input type="text" name="title"> <br>
+        내용 : <input type="text" name="content"> <br>
+        작성자 : <input type="text" name="writer"> <br>
+        파일등록 : <input type="file" name="files"> <br>
+
+        <button type="submit">완료</button>
+    </form> <br>
+
+    <a href="/read">목록</a>
+
+</div>
+
+</body>
+</html>
