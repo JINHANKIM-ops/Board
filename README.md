@@ -1,4 +1,4 @@
-# Tutorial-Board
+# Board
 1. 개발 환경 
    - Intellij Ultimate
    - MySql 8.0.22.0
