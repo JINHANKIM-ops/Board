@@ -1,10 +1,10 @@
 # Tutorial-Board
 1. 개발 환경 
    - Intellij Ultimate
-   - Myql 8.0.22.0
+   - MySql 8.0.22.0
    - JDK 1.8
 2. 개발 기간
-   - 14일
+   - 10일
 3. 사용 테이블
    - Member: 회원정보를 저장하기 위한 테이블 
    - Contents: 게시글의 정보를 저장하기 위한 테이블 
